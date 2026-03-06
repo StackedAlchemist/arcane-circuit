@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARCANE CIRCUIT — Chess</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="game-title">ARCANE CIRCUIT</div>
+  <div class="game-subtitle">CYBERPUNK ALCHEMIST CHESS</div>
+  <div class="rune-divider"><span class="rune-symbol">⚗</span></div>
+</header>
+
+<div class="game-container">
+
+  <!-- Left Panel -->
+  <div class="side-panel">
+
+    <!-- Mode -->
+    <div class="panel-card">
+      <div class="panel-title">⚡ Protocol</div>
+      <button class="mode-btn active" id="btn-2p" onclick="setMode('2p')">
+        <span class="mode-icon">⚔</span> Two Alchemists
+      </button>
+      <button class="mode-btn" id="btn-ai" onclick="setMode('ai')">
+        <span class="mode-icon">🤖</span> vs AI Oracle
+      </button>
+    </div>
+
+    <!-- Difficulty -->
+    <div class="panel-card" id="diff-panel">
+      <div class="panel-title">☣ Cipher Level</div>
+      <div class="diff-row">
+        <button class="diff-btn active" id="diff-1" onclick="setDiff(1)">I</button>
+        <button class="diff-btn" id="diff-2" onclick="setDiff(2)">II</button>
+        <button class="diff-btn" id="diff-3" onclick="setDiff(3)">III</button>
+      </div>
+    </div>
+
+    <!-- White player -->
+    <div class="panel-card">
+      <div class="panel-title">◈ Aurum Order</div>
+      <div class="player-card">
+        <div>
+          <span class="turn-indicator inactive" id="white-turn"></span>
+          <span class="player-name white-player">WHITE MAGE</span>
+        </div>
+        <div class="player-faction">The Golden Cipher</div>
+        <div class="captured-pieces" id="white-captured"></div>
+      </div>
+    </div>
+
+    <!-- Status -->
+    <div class="panel-card">
+      <div class="status-text status-normal" id="status-text">AWAITING MOVE</div>
+    </div>
+
+    <!-- Actions -->
+    <div class="panel-card">
+      <div class="panel-title">⊕ Commands</div>
+      <button class="action-btn" onclick="newGame()">NEW RITUAL</button>
+      <button class="action-btn" onclick="undoMove()">UNDO LAST</button>
+    </div>
+
+  </div>
+
+  <!-- Board -->
+  <div class="board-wrapper">
+    <div class="board-outer" id="board-outer">
+      <span class="corner-rune tl">⬡</span>
+      <span class="corner-rune tr">⬡</span>
+      <span class="corner-rune bl">⬡</span>
+      <span class="corner-rune br">⬡</span>
+
+      <div class="board-labels-row">
+        <div style="width:16px"></div>
+        <div class="board-label">A</div><div class="board-label">B</div>
+        <div class="board-label">C</div><div class="board-label">D</div>
+        <div class="board-label">E</div><div class="board-label">F</div>
+        <div class="board-label">G</div><div class="board-label">H</div>
+      </div>
+
+      <div class="board-with-ranks">
+        <div class="rank-labels" id="rank-labels">
+          <div class="rank-label">8</div><div class="rank-label">7</div>
+          <div class="rank-label">6</div><div class="rank-label">5</div>
+          <div class="rank-label">4</div><div class="rank-label">3</div>
+          <div class="rank-label">2</div><div class="rank-label">1</div>
+        </div>
+        <div id="chess-board"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Panel -->
+  <div class="side-panel">
+
+    <!-- Black player -->
+    <div class="panel-card">
+      <div class="panel-title">◈ Umbra Cult</div>
+      <div class="player-card">
+        <div>
+          <span class="turn-indicator inactive" id="black-turn"></span>
+          <span class="player-name black-player" id="black-name">BLACK MAGE</span>
+        </div>
+        <div class="player-faction" id="black-faction">The Void Circuit</div>
+        <div class="captured-pieces" id="black-captured"></div>
+      </div>
+    </div>
+
+    <!-- Move history -->
+    <div class="panel-card" style="flex: 1;">
+      <div class="panel-title">📜 Arcane Log</div>
+      <div class="move-list" id="move-list"></div>
+    </div>
+
+    <!-- Piece legend -->
+    <div class="panel-card">
+      <div class="panel-title">⚗ Sigils</div>
+      <div style="font-size: 0.72rem; color: #445566; line-height: 2;">
+        <div>♔ / ♚ — Philosopher King</div>
+        <div>♕ / ♛ — Void Empress</div>
+        <div>♖ / ♜ — Circuit Tower</div>
+        <div>♗ / ♝ — Rune Bishop</div>
+        <div>♘ / ♞ — Neon Knight</div>
+        <div>♙ / ♟ — Cipher Pawn</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Promotion modal -->
+<div class="modal-overlay hidden" id="promo-modal">
+  <div class="modal">
+    <div class="modal-title">⚗ TRANSMUTATION ⚗</div>
+    <div style="font-size:0.75rem; color:#556688; margin-bottom:16px; font-family: Rajdhani; letter-spacing:0.1em;">
+      Choose your alchemical ascension
+    </div>
+    <div class="promotion-choices" id="promo-choices"></div>
+  </div>
+</div>
+
+<script src="chess.js"></script>
+</body>
+</html>
